@@ -8,10 +8,12 @@
 
 ## Diagram of Application
 
-<br>
-<br>
+Image of Application Diagram Here: [App-Diagram](public/poem-app-diagram.png)
 
-<img src="./public/poem-app-diagram.png" width="800px" alt="the diagram of the application">
+## KNOWN BUGS
 
-<br>
-<br>
+- There are no known bugs at this time.
+
+## LICENSE
+
+Licensed under the [MIT License](LICENSE)
