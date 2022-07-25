@@ -10,7 +10,7 @@ export const Loading: React.FC<ILoadingProps> = (props) => {
   const { children, dotType } = props;
 
   return (
-    <div className="text-center">
+    <div className="justify-center">
       <div className="stage">
         <div className={dotType}></div>
       </div>
@@ -36,7 +36,7 @@ export const LoadingComponent: React.FC<ILoadingComponentProps> = (props) => {
     return (
       <CenterPiece>
         <div className="card">
-          <div className="card-body">
+          <div className="card-body justify-center">
             <Loading dotType={dotType}>{children}</Loading>
           </div>
         </div>

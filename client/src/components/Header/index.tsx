@@ -3,7 +3,7 @@ import * as React from 'react';
 export interface IHeaderProps {
   height?: string;
   title: string;
-  headline: string;
+  headline?: string;
   children?: React.ReactNode;
 }
 
