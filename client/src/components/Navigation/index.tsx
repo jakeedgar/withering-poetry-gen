@@ -1,15 +1,12 @@
 import React, { useContext } from 'react';
 import UserContext, { initialUserState } from '../../contexts/user';
+import { AuthCredential, getAuth, signOut } from 'firebase/auth';
 
 export interface INavigationProps {}
 
 const Navigation: React.FC<INavigationProps> = (props) => {
-  const userContext = useContext(UserContext);
-  const { user } = userContext.userState;
+  const auth = getAuth();
 
-  const logout = () => {
-    userContext.userDispatch({ type: 'logout', payload: initialUserState });
-  };
   return (
     <div className="container">
       <nav className="navbar-dark text-light-light-4 mb-4">
@@ -19,24 +16,24 @@ const Navigation: React.FC<INavigationProps> = (props) => {
           </a>
         </h2>
         <h6>an erasure poetry generator</h6>
-        {user._id !== '' ? (
+        {AuthCredential !== null ? (
           <ul>
             <li>
               <a href="/poems">Create a New Poem</a>
             </li>
             <li>
-              <a onClick={() => logout()}>Logout</a>
+              <a onClick={() => signOut(auth)}>Logout</a>
             </li>
           </ul>
         ) : (
           <div>
             <ul>
               <li>
-                <a href="/login">Login</a>
+                <a href="/poems/create">new poem</a>
               </li>
               <li className="ml-2 mr-2"></li>
               <li>
-                <a href="/register">Sign Up</a>
+                <a href="/poems">your poems</a>
               </li>
             </ul>
           </div>
