@@ -32,7 +32,7 @@ const Navigation: React.FC<INavigationProps> = (props) => {
           <div>
             <ul>
               <li>
-                <a href="/users/login">Login</a>
+                <a href="/login">Login</a>
               </li>
               <li className="ml-2 mr-2"></li>
               <li>

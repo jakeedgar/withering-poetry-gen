@@ -21,88 +21,36 @@ export interface IApplicationProps {}
 const App: React.FC<IApplicationProps> = (props) => {
   const {} = props;
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
-  const [authStage, setAuthStage] = useState<string>('Checking Local Storage ...');
   const [loading, setLoading] = useState<boolean>(true);
 
   const { poemSelector } = useParams();
-
-  useEffect(() => {
-    setTimeout(() => {
-      CheckLocalStorageForCredentials();
-    }, 1000);
-
-    // eslint-disable-next-line
-  }, []);
-
-  const CheckLocalStorageForCredentials = () => {
-    setAuthStage('Checking credentials ...');
-
-    const fire_token = localStorage.getItem('fire_token');
-
-    if (fire_token === null) {
-      userDispatch({ type: 'logout', payload: initialUserState });
-      setAuthStage('No credentials found');
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    } else {
-      return Validate(fire_token, (error, user) => {
-        if (error) {
-          logging.error(error);
-          userDispatch({ type: 'logout', payload: initialUserState });
-          setLoading(false);
-        } else if (user) {
-          userDispatch({ type: 'login', payload: { user, fire_token } });
-          setLoading(false);
-        }
-      });
-    }
-  };
 
   const userContextValues = {
     userState,
     userDispatch
   };
 
-  if (loading) {
-    return <LoadingComponent>{authStage}</LoadingComponent>;
-  }
-
   return (
-    <UserContextProvider value={userContextValues}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="users">
-            <Route index element={<HomePage />} />
-            <Route path=":page" element={<LoginPage children={undefined} />} />
-          </Route>
-          <Route path="poems">
-            <Route index element={<PoemPage />} />
-            {/* <Route path=":poemSelector" element={<PoemPage />} /> */}
-          </Route>
-          <Route path="create" element={<NewPoemPage />} />
-        </Routes>
-        {/* <Routes>
-          {routes.map((route, index) => {
-            if (route.auth) {
-              return (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={
-                    <AuthRoute>
-                      <route.component />
-                    </AuthRoute>
-                  }
-                />
-              );
-            }
-            return <Route key={index} path={route.path} element={<route.component />} />;
-          })}
-        </Routes> */}
-      </BrowserRouter>
-    </UserContextProvider>
+    <BrowserRouter>
+      <Routes>
+        {routes.map((route, index) => {
+          if (route.auth) {
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <AuthRoute>
+                    <route.component />
+                  </AuthRoute>
+                }
+              />
+            );
+          }
+          return <Route key={index} path={route.path} element={<route.component />} />;
+        })}
+      </Routes>
+    </BrowserRouter>
   );
 };
 

@@ -24,7 +24,7 @@ const poemRoutes: IRoute[] = [
   {
     path: '/create',
     exact: true,
-    auth: false,
+    auth: true,
     component: PoemPage,
     name: 'Create'
   },

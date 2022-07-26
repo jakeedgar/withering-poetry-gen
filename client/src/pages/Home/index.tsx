@@ -18,34 +18,7 @@ const HomePage: React.FC<IPageProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
   const auth = getAuth();
-  useEffect(() => {
-    GetAllPoems();
-  }, []);
 
-  const GetAllPoems = async () => {
-    try {
-      const response = await axios({
-        method: 'GET',
-        url: `${config.server.url}/poems`
-      });
-
-      if (response.status === 200 || response.status === 304) {
-        let poems = response.data.poems as IPoem[];
-        poems.sort((x, y) => y.updatedAt.localeCompare(x.updatedAt));
-        setPoems(poems);
-      }
-    } catch (error) {
-      logging.error(error);
-      setError('Unable to get that poem friend ...');
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  };
-  if (loading) {
-    return <LoadingComponent>Loading</LoadingComponent>;
-  }
   return (
     <div>
       <Navigation />
