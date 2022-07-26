@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../../contexts/user';
+import logging from '../../config/logging';
 
 export interface IAuthRouteProps {
-  children: React.ReactNode;
+  children: any;
 }
 
 const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
@@ -12,13 +14,15 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const userContext = useContext(UserContext);
+
   useEffect(() => {
     const AuthCheck = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoading(false);
+      if (userContext.userState.user._id === '' || user === null) {
+        logging.info('Unauthorized, redirecting');
+        return navigate('/users/login');
       } else {
-        console.log("unauthorized");
-        navigate("/login");
+        return <>{children}</>;
       }
     });
 

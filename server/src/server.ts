@@ -3,8 +3,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import logging from './config/logging';
 import config from './config/config';
-import dotenv from 'dotenv/config';
+import 'dotenv/config';
 import firebaseAdmin from 'firebase-admin';
+import poemRoutes from './routes/poem';
+import userRoutes from './routes/user';
 
 const router = express();
 
@@ -56,6 +58,8 @@ router.use((req, res, next) => {
 });
 
 /** Routes */
+router.use('/users', userRoutes);
+router.use('/poems', poemRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {

@@ -24,19 +24,26 @@ const poemRoutes: IRoute[] = [
   {
     path: 'poems/create',
     exact: true,
-    auth: true,
+    auth: false,
     component: PoemPage,
     name: 'Create'
   },
   {
     path: 'poems/update/:poemID',
     exact: true,
-    auth: true,
+    auth: false,
     component: PoemPage,
     name: 'Update'
   },
   {
     path: '/poems/:poemID',
+    exact: true,
+    auth: false,
+    component: PoemPage,
+    name: 'Poem'
+  },
+  {
+    path: '/poems',
     exact: true,
     auth: false,
     component: PoemPage,

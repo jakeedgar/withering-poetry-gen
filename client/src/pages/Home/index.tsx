@@ -44,16 +44,18 @@ const HomePage: React.FC<IPageProps> = (props) => {
     }
   };
   if (loading) {
-    return <LoadingComponent>Loading ...</LoadingComponent>;
+    return <LoadingComponent>Loading</LoadingComponent>;
   }
   return (
     <div>
       <Navigation />
       <div className="container">
         <Header title={'Welcome to wither!'} children={''} />
+
         <button id="sign-out" className="btn-primary mr-2 mt-2" onClick={() => signOut(auth)}>
           Sign out
         </button>
+
         <p>{children}</p>
         <ErrorText error={error} />
       </div>
