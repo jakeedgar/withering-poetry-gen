@@ -22,7 +22,7 @@ const authRoutes: IRoute[] = [
 
 const poemRoutes: IRoute[] = [
   {
-    path: 'poems/create',
+    path: '/create',
     exact: true,
     auth: false,
     component: PoemPage,
@@ -37,13 +37,6 @@ const poemRoutes: IRoute[] = [
   },
   {
     path: '/poems/:poemID',
-    exact: true,
-    auth: false,
-    component: PoemPage,
-    name: 'Poem'
-  },
-  {
-    path: '/poems',
     exact: true,
     auth: false,
     component: PoemPage,

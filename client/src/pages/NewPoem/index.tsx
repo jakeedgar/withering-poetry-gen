@@ -15,13 +15,17 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Params } from 'react-router-dom';
 
-const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) => {
+const NewPoemPage: React.FunctionComponent<RouteComponentProps<Params>> = (props) => {
+  const {} = props;
+
   const [_id, setId] = useState<string>('');
+  const [creator, setCreator] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [contentPostErasure, setContentPostErasure] = useState<string>('');
-  const [headline, setHeadline] = useState<string>('');
+
   const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty());
 
   const [saving, setSaving] = useState<boolean>(false);
@@ -31,8 +35,10 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
 
   const { user } = useContext(UserContext).userState;
 
+  // const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
-    let poemID = props.match.params.poemID;
+    let poemID = user.uid;
 
     if (poemID) {
       setId(poemID);
@@ -52,13 +58,13 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
       });
 
       if (response.status === (200 || 304)) {
-        if (user._id !== response.data.poem.author._id) {
+        if (user._id !== response.data.poem.creator._id) {
           logging.warn(`This poem is owned by someone else.`);
           setId('');
         } else {
           setTitle(response.data.poem.title);
           setContent(response.data.poem.content);
-          setHeadline(response.data.poem.headline);
+          setCreator(response.data.poem.creator);
 
           /** Convert html string to draft JS */
           const contentBlock = htmlToDraft(response.data.poem.content);
@@ -78,7 +84,7 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
   };
 
   const createPoem = async () => {
-    if (title === '' || headline === '' || content === '') {
+    if (title === '' || creator === '' || content === '') {
       setError('Please fill out all fields.');
       setSuccess('');
       return null;
@@ -91,7 +97,7 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
     try {
       const response = await axios({
         method: 'POST',
-        url: `${config.server.url}/poems/create`,
+        url: `${config.server.url}/create`,
         data: {
           title,
           creator: user._id,
@@ -114,7 +120,7 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
   };
 
   const editPoem = async () => {
-    if (title === '' || headline === '' || content === '') {
+    if (title === '' || creator === '' || content === '') {
       setError('Please fill out all fields.');
       setSuccess('');
       return null;
@@ -153,13 +159,14 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
   return (
     <Container fluid className="p-0">
       <Navigation />
-      <Header headline="" title={_id !== '' ? 'Edit Your Poem' : 'Create a Poem'} />
+      <Header creator="" title={_id !== '' ? 'Edit Your Poem' : 'Create a Poem'} />
       <Container className="mt-5 mb-5">
         <ErrorText error={error} />
         <Form>
           <FormGroup>
             <Label for="title">Title</Label>
             <Input
+              className="mr-2"
               type="text"
               name="title"
               value={title}
@@ -172,6 +179,35 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
             />
           </FormGroup>
           <FormGroup>
+            <Label for="creator">Author:</Label>
+            <Input
+              className="mr-2"
+              type="text"
+              name="creator"
+              value={creator}
+              id="creator"
+              placeholder="Enter your name"
+              disabled={saving}
+              onChange={(event) => {
+                setCreator(event.target.value);
+              }}
+            />
+          </FormGroup>
+          {/* <FormGroup>
+            <Label>Content</Label>
+            <Input
+              type="text"
+              name="content"
+              value={content}
+              id="content"
+              placeholder="Enter your content"
+              disabled={saving}
+              onChange={(event) => {
+                setContent(event.target.value);
+              }}
+            />
+          </FormGroup> */}
+          <FormGroup>
             <Label>Content</Label>
             <Editor
               editorState={editorState}
@@ -181,14 +217,6 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
                 setEditorState(newState);
                 setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
               }}
-              toolbar={{
-                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history', 'embedded', 'emoji', 'image'],
-                inline: { inDropdown: true },
-                list: { inDropdown: true },
-                textAlign: { inDropdown: true },
-                link: { inDropdown: true },
-                history: { inDropdown: true }
-              }}
             />
           </FormGroup>
           <FormGroup>
@@ -196,6 +224,7 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
           </FormGroup>
           <FormGroup>
             <button
+              className="btn-error text-base"
               onClick={() => {
                 if (_id !== '') {
                   editPoem();
@@ -205,7 +234,6 @@ const NewPoemPage: React.FunctionComponent<RouteComponentProps<any>> = (props) =
               }}
               disabled={saving}
             >
-              <i className="fas fa-save mr-1"></i>
               {_id !== '' ? 'Update' : 'Post'}
             </button>
             {_id !== '' && (

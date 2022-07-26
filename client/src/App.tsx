@@ -80,8 +80,8 @@ const App: React.FC<IApplicationProps> = (props) => {
           <Route path="poems">
             <Route index element={<PoemPage />} />
             {/* <Route path=":poemSelector" element={<PoemPage />} /> */}
-            <Route path=":poemSelector" element={<NewPoemPage />} />
           </Route>
+          <Route path="create" element={<NewPoemPage />} />
         </Routes>
         {/* <Routes>
           {routes.map((route, index) => {

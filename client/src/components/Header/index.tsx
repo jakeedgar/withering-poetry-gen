@@ -3,12 +3,12 @@ import * as React from 'react';
 export interface IHeaderProps {
   height?: string;
   title: string;
-  headline?: string;
+  creator?: string;
   children?: React.ReactNode;
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {
-  const { height, title, headline, children } = props;
+  const { height, title, creator, children } = props;
 
   let headerStyle = {
     background: 'primary-light-5',
@@ -28,7 +28,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
         <div className="row-flex gap-1 justify-center">
           <div className="col-sm-12 col md-6 col-lg-6">
             <h1 className="mt-5 mb-2">{title}</h1>
-            <h3 className="mb-5 text-white">{headline}</h3>
+            <h3 className="mb-5 text-white">{creator}</h3>
             <p>{children}</p>
           </div>
         </div>
