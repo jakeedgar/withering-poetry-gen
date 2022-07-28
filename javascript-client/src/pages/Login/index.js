@@ -6,8 +6,8 @@ const LoginPage = () => {
   return (
     <>
       <NavBar />
-      <div className="card">
-        <h3 className="card-title ml-3"> Your Account </h3>
+      <div className="card text-center">
+        <h3 className="card-title ml-3"> My Account </h3>
         <div className="card-body">
           <LoginComponent />
         </div>
