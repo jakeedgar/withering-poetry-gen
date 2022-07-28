@@ -2,6 +2,7 @@ import IRoute from '../interfaces/route';
 import LoginPage from '../pages/Login/';
 import PoemPage from '../pages/Poem';
 import HomePage from '../pages/Home';
+import NewPoemPage from '../pages/Create';
 
 const authRoutes: IRoute[] = [
   {
@@ -25,7 +26,7 @@ const poemRoutes: IRoute[] = [
     path: '/create',
     exact: true,
     auth: true,
-    component: PoemPage,
+    component: NewPoemPage,
     name: 'Create'
   },
   {
@@ -37,6 +38,13 @@ const poemRoutes: IRoute[] = [
   },
   {
     path: '/poems/:poemID',
+    exact: true,
+    auth: false,
+    component: PoemPage,
+    name: 'Poem'
+  },
+  {
+    path: 'create/poems',
     exact: true,
     auth: false,
     component: PoemPage,

@@ -27,10 +27,14 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
 
   return (
     <div>
-      <p>Login Page</p>
-      <button onClick={() => signInWithGoogle()} disabled={authorizing}>
-        Sign in with Google
-      </button>
+      <h2 className="mt-3 ml-2 mb-3">Welcome to wither [ai]</h2>
+      <p className="ml-2 mb-3">If you are tired of poems that sound nice and have deep meaning than you are in the right place!</p>
+      <div className="ml-2 mb-3">
+        <button className="btn-dark text-light" onClick={() => signInWithGoogle()} disabled={authorizing}>
+          Sign in with Google
+        </button>
+      </div>
+      <p className="ml-2 mb-3">Login Page</p>
     </div>
   );
 };

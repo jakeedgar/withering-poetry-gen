@@ -1,43 +1,28 @@
 import * as React from 'react';
+import './index.css';
 
 export interface IHeaderProps {
-  height?: string;
-  title: string;
+  title?: string;
   creator?: string;
   children?: React.ReactNode;
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {
-  const { height, title, creator, children } = props;
-
-  let headerStyle = {
-    background: 'primary-light-5',
-    WebkitBackgroundSize: 'cover',
-    MozBackgroundSize: 'cover',
-    OBackgroundSize: 'cover',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    width: '100%',
-    height: height
-  };
+  const { title, creator, children } = props;
 
   return (
-    <header style={headerStyle}>
-      <div className="container">
-        <div className="row-flex gap-1 justify-center">
+    <div className="flex-container">
+      <div className="container-header">
+        <div className="row-flex justify-center">
           <div className="col-sm-12 col md-6 col-lg-6">
-            <h1 className="mt-5 mb-2">{title}</h1>
-            <h3 className="mb-5 text-white">{creator}</h3>
+            <h1 className="mt-5 mb-2 ml-3">{title}</h1>
+            <h3 className="mb-5 text-dark ml-3">{creator}</h3>
             <p>{children}</p>
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 
-Header.defaultProps = {
-  height: '100%'
-};
 export default Header;

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
-import NewPoemPage from './pages/NewPoem';
-import { initializeApp } from 'firebase/app';
+import NewPoemPage from './pages/Create';
 import AuthRoute from './components/AuthRoute';
-import firebaseConfig from './config/firebase';
+import app from './config/firebase';
+import PoemPage from './pages/Poem';
 
-const app = initializeApp(firebaseConfig);
+const firebase = app;
 
 export interface IApplicationProps {}
 
@@ -25,13 +25,14 @@ const App: React.FC<IApplicationProps> = (props) => {
           }
         />
         <Route
-          path="/poems"
+          path="/create"
           element={
             <AuthRoute>
               <NewPoemPage />
             </AuthRoute>
           }
         />
+        <Route path="/poems" element={<PoemPage />} />
         <Route path="/login" element={<LoginPage children={undefined} />} />
       </Routes>
     </BrowserRouter>

@@ -8,57 +8,55 @@ import Navigation from '../../components/Navigation';
 import Header from '../../components/Header';
 import IUser from '../../interfaces/user';
 import ErrorText from '../../components/ErrorText';
-import { RouteComponentProps } from '../../interfaces/interfaces';
-import { getAuth } from 'firebase/auth';
+import { getFirestore, collection, deleteDoc, doc, updateDoc, getDocs } from '@firebase/firestore';
+import app from '../../config/firebase';
+import GetPoem from '../../components/PoemComponents/getPoem';
 
 export interface IPoemPageProps {}
 
-const PoemPage: React.FC<RouteComponentProps<any>> = (props) => {
-  const [_id, setId] = useState<string>('');
+const PoemPage: React.FC<IPoemPageProps> = (props) => {
+  const db = getFirestore(app);
+
+  const [id, setId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
-  const [poem, setPoem] = useState<IPoem | null>(null);
+  const [poems, setPoems] = useState<any>([]);
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [newPoems, setNewPoems] = useState<string>('');
   const [deleting, setDeleting] = useState<boolean>(false);
 
+  const poemsCollectionRef = collection(db, 'poems');
+
   const navigate = useNavigate();
-  const params = useParams();
-  const poemID = {};
 
-  let user = {};
-
-  useEffect(() => {
-    let _poemId = poemID;
-  }, []);
-
-  const getPoem = async () => {};
-
-  const deletePoem = async () => {
-    setDeleting(true);
+  const updatePoem = async (id: string, content: string) => {
+    const poemsDoc = doc(db, 'poems', id);
+    const newFields = { content: content.concat('add this to the content.') };
+    await updateDoc(poemsDoc, newFields);
   };
 
-  if (poem) {
-    return (
-      <div className="container">
-        <Navigation />
-        <Header title={poem.title}></Header>
-        <p className="text-light">
-          Created by: {(poem.creator as IUser).name} on {new Date(poem.createdAt).toLocaleString()}
-        </p>
-        <div className="flex-container">
-          {user === (poem.creator as IUser)._id && (
-            <div className="p-0">
-              <button className="btn-error" onClick={() => deletePoem()}>
-                Delete Me?
-              </button>
-            </div>
-          )}
-          <ErrorText error={error} />
-        </div>
-      </div>
+  const deletePoems = async (id: string) => {
+    const poemsDoc = doc(db, 'poems', id);
+    await deleteDoc(poemsDoc);
+  };
+
+  const logTester = async () => {
+    const Poem = poemsCollectionRef.path;
+    const poemDocs = await getDocs(poemsCollectionRef);
+    const PoemData = poemDocs.docs;
+    setPoems(
+      poemDocs.docs.map((poemDoc) => {
+        ({ ...poemDoc.data(), poems: poemDoc.get('poems') });
+      })
     );
-  } else {
-    return <Navigate to="/" />;
-  }
+  };
+
+  return (
+    <div>
+      <GetPoem />
+    </div>
+  );
 };
 
 export default PoemPage;
