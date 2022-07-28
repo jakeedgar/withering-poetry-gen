@@ -29,7 +29,7 @@
   border: solid 2px rgba(2, 2, 53, 0.408);
 }
 
-.center-piece-blur:hover {
+/* .center-piece-blur:hover {
   filter: blur(0.5px);
   cursor: crosshair;
-}
+} */
