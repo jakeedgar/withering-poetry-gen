@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { RedactPoem } from './RedactPoem';
-import '../../index.css';
+import '../../assets/css/redacted.css';
+import '../../assets/css/index.css';
+import '../../assets/css/center_piece.css';
 
 export const PoemDetail = (props) => {
   const { poem, onClickingDelete, onClickingEdit } = props;
@@ -22,7 +24,6 @@ export const PoemDetail = (props) => {
           <div dangerouslySetInnerHTML={{ __html: redactedContent }}></div>
         </div>
       </div>
-
       <button className="btn-primary text-dark mt-1 mb-1" onClick={() => onClickingEdit(poem.id)}>
         Update Poem
       </button>

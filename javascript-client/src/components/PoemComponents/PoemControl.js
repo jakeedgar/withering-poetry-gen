@@ -111,7 +111,7 @@ class PoemControl extends React.Component {
     return (
       <React.Fragment>
         <NavBar />
-        <div className="container ml-2">
+        <div className="center-piece">
           {currentlyVisibleState}
           <div className="ml-2">
             <button className="btn-secondary" onClick={this.handleClick}>

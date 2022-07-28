@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import AuthRoute from './components/AuthRoute';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login/';
 import PoemPage from './pages/Poem';
