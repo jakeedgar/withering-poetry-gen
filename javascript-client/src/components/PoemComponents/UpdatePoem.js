@@ -8,8 +8,8 @@ export default function UpdatePoem(props) {
   const handleUpdatePoemFormSubmission = (event) => {
     event.preventDefault();
     props.onUpdatePoem({
-      title: event.target.content.value,
-      creator: event.target.name.value,
+      title: event.target.title.value,
+      creator: event.target.creator.value,
       content: event.target.content.value,
       id: poem.id
     });

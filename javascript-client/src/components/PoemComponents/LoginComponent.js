@@ -2,6 +2,7 @@ import { useState } from 'react';
 import app from '../../config/firebase';
 import { onAuthStateChanged, signOut, GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import logging from '../../config/logging';
+import '../../assets/css/index.css';
 
 function LoginComponent() {
   const [user, setUser] = useState({});
@@ -47,8 +48,7 @@ function LoginComponent() {
 
   return (
     <div className="container">
-      <h3 className="ml-2"> Your Account </h3>
-      <h4 className="mt-3 ml-2 mb-3">Welcome to wither [ai]</h4>
+      <h4 className="ml-2 mb-3">Welcome to wither [ai]</h4>
       <p className="ml-2 mb-3">If you are tired of poems that sound nice and have deep meaning than you are in the right place!</p>
       {user ? (
         <div className="ml-2">

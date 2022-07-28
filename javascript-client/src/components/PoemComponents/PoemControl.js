@@ -14,10 +14,10 @@ class PoemControl extends React.Component {
       mainPoemList: [
         {
           id: v4(),
-          title: 'Wandering',
-          creator: "Akiva N'cham",
+          title: 'I Bodies',
+          creator: 'Akiva',
           content:
-            'I am seated in an office, surrounded by heads and bodies. My posture is consciously congruent to the shape of my hard chair. This is a cold room in University Administration, wood-walled, Remington-hung, double-windowed against the November heat'
+            'I am seated in an office, surrounded by heads and bodies. My posture is consciously congruent to the shape of my hard chair. This is a cold room in University Administration, wood-walled, Remington-hung'
         }
       ],
       selectedPoem: null,
@@ -111,13 +111,11 @@ class PoemControl extends React.Component {
     return (
       <React.Fragment>
         <NavBar />
-        <div className="center-piece">
-          {currentlyVisibleState}
-          <div className="ml-2">
-            <button className="btn-secondary" onClick={this.handleClick}>
-              {buttonText}
-            </button>
-          </div>
+        {currentlyVisibleState}
+        <div className="ml-4 mb-2">
+          <button className="btn-secondary" onClick={this.handleClick}>
+            {buttonText}
+          </button>
         </div>
       </React.Fragment>
     );

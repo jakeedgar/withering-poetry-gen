@@ -4,10 +4,15 @@ import LoginComponent from '../../components/PoemComponents/LoginComponent';
 
 const LoginPage = () => {
   return (
-    <div>
+    <>
       <NavBar />
-      <LoginComponent />
-    </div>
+      <div className="card">
+        <h3 className="card-title ml-3"> Your Account </h3>
+        <div className="card-body">
+          <LoginComponent />
+        </div>
+      </div>
+    </>
   );
 };
 

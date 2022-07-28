@@ -10,7 +10,7 @@ function ReusableForm(props) {
           <br />
           <textarea id="text-area" className="input-text" type="text" name="title" placeholder="Poem Title ..." />
           <br />
-          <textarea id="text-area-para" className="input-text" type="text" maxLength={225} name="content" placeholder="Random Paragraph here ..." />
+          <textarea id="text-area" className="input-text" type="text" maxLength={225} name="content" placeholder="Random Paragraph here ..." />
           <br />
           <button className="btn-success" type="submit">
             {props.buttonText}

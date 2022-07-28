@@ -18,8 +18,8 @@ export const RedactAll = (poem) => {
   let output = [];
   for (let i = 0; i < arr.length; i++) {
     if (i % 1 === 0 || i % 2 === 0) {
-      output.push(`<span class='redacted-all'>` + arr[i] + 'test word and more' + '</span>');
+      output.push(`<span class='redacted-all'>` + arr[i] + '</span>');
     }
   }
-  return output.join('');
+  return output.join(' ');
 };

@@ -14,9 +14,9 @@ function NewPoemForm(props) {
     });
   }
   return (
-    <React.Fragment>
-      <ReusableForm formSubmissionHandler={handleNewPoemFormSubmission} buttonText="New poem!" />
-    </React.Fragment>
+    <div className="p-1 ml-1">
+      <ReusableForm formSubmissionHandler={handleNewPoemFormSubmission} buttonText="Redactify!" />
+    </div>
   );
 }
 
